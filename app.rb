@@ -3,7 +3,7 @@ require 'sinatra'
 require 'json'
 require 'httpclient'
 
-  post '/linebot/callback' do
+post '/linebot/callback' do
   params = JSON.parse(request.body.read)
 
   params['result'].each do |msg|
