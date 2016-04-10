@@ -4,6 +4,7 @@ require 'json'
 require 'httpclient'
 
 post '/linebot/callback' do
+  a = {aaa: "aaa", bbb: "bbb"}
   results = []
   params = JSON.parse(request.body.read)
   params['result'].each do |msg|
@@ -25,6 +26,6 @@ post '/linebot/callback' do
     })
   end
 
-  puts "*****"
-  puts results
+  logger.info "*********************************"
+  logger.info results
 end
