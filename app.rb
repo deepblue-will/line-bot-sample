@@ -9,7 +9,7 @@ post '/linebot/callback' do
   params['result'].each do |msg|
     text = msg['content']['text']
     trigger_words = ENV["REPLY_WORDS"].split(",")
-    next if !trigger_words.any{|w| text.match(/#{Regexp.escape(w)}/)}
+    next if !trigger_words.any?{|w| text.match(/#{Regexp.escape(w)}/)}
 
     request_content = {
       to: [msg['content']['from']],
