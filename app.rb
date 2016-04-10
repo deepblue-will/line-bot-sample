@@ -7,11 +7,19 @@ post '/linebot/callback' do
   params = JSON.parse(request.body.read)
 
   params['result'].each do |msg|
+    text = msg['content']['text']
+    trigger_words = ENV["REPLY_WORDS"].split(",")
+    next if !trigger_words.any{|w| text.match(/#{Regexp.escape(w)}/)}
+
     request_content = {
       to: [msg['content']['from']],
       toChannel: 1383378250, # Fixed  value
       eventType: "138311608800106203", # Fixed value
-      content: msg['content']
+      content: {
+        "contentType": 1,
+        "toType": 1,
+        "text": ENV["REPLY_WORDS"].split(",").sample
+      }
     }
 
     endpoint_uri = 'https://trialbot-api.line.me/v1/events'
